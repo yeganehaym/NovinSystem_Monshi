@@ -1,0 +1,75 @@
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Monshi.Domain;
+using Monshi.Domain.Logs;
+using Monshi.Domain.Products.Entities;
+using Monshi.Domain.Users.Entities;
+
+namespace Monshi.Data.SqlServer;
+
+public class ApplicationDbContext:DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+    {
+        
+    }
+    
+    public DbSet<Product> Products { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<OtpCode> OtpCodes { get; set; }
+    public DbSet<Log> Logs { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(UserConfig)));
+//        modelBuilder.Entity<User>().HasQueryFilter(x => x.IsRemoved == false);
+
+        var entities = modelBuilder.Model.GetEntityTypes()
+            .Select(x => x.ClrType)
+            .Where(x => x.BaseType ==typeof(BaseEntity))
+            .ToList();
+
+        foreach (var entity in entities)
+        {
+            var mymethod = method.MakeGenericMethod(new[] {entity});
+            mymethod.Invoke(this,new []{modelBuilder});
+        }
+        base.OnModelCreating(modelBuilder);
+    }
+
+     public MethodInfo method = typeof(ApplicationDbContext).GetMethod("SetQueryFilter");
+    public void SetQueryFilter<T>(ModelBuilder modelBuilder) where T:BaseEntity
+    {
+        modelBuilder.Entity<T>().HasQueryFilter(x => x.IsRemoved == false);
+    }
+
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        var entries=ChangeTracker
+            .Entries()
+            .Where(x => x.Entity is BaseEntity)
+            .Where(x => x.State == EntityState.Added || x.State == EntityState.Modified)
+            .ToList();
+
+        foreach (var entry in entries)
+        {
+            if (entry.State == EntityState.Added)
+            {
+                ((BaseEntity)entry.Entity).CreationDate=DateTime.Now;
+            }
+            else  if (entry.State == EntityState.Modified)
+            {
+                ((BaseEntity)entry.Entity).ModificationDate=DateTime.Now;
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.Properties<string>().HaveMaxLength(100);
+        configurationBuilder.Properties<TimeSpan>().HaveConversion<TimeSpanConverter>();
+        base.ConfigureConventions(configurationBuilder);
+    }
+}
