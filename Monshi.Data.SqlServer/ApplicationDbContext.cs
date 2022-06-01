@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Monshi.Domain;
+using Monshi.Domain.Customers;
 using Monshi.Domain.Logs;
+using Monshi.Domain.Orders;
 using Monshi.Domain.Products.Entities;
 using Monshi.Domain.Users.Entities;
 
@@ -18,9 +20,38 @@ public class ApplicationDbContext:DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<OtpCode> OtpCodes { get; set; }
     public DbSet<Log> Logs { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Factor> Factors { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        /*modelBuilder.Entity<Factor>().HasOne(x => x.Customer)
+            .WithMany(x => x.Factors)
+            .HasForeignKey(x => x.CustomerId);
+        
+        modelBuilder.Entity<Factor>().HasOne(x => x.User)
+            .WithMany(x => x.Factors)
+            .HasForeignKey(x => x.UserId);
+        
+        modelBuilder.Entity<OrderItem>().HasOne(x => x.Factor)
+            .WithMany(x => x.OrderItems)
+            .HasForeignKey(x => x.FactorId);
+        
+        modelBuilder.Entity<OrderItem>().HasOne(x => x.Product)
+            .WithMany(x => x.OrderItems)
+            .HasForeignKey(x => x.ProductId);
+        
+        
+        modelBuilder.Entity<Product>().HasOne(x => x.User)
+            .WithMany(x => x.Products)
+            .HasForeignKey(x => x.UserId);
+
+
+        modelBuilder.Entity<Customer>().HasOne(x => x.User)
+            .WithMany(x => x.Customers)
+            .HasForeignKey(x => x.UserId);*/
+                
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(UserConfig)));
 //        modelBuilder.Entity<User>().HasQueryFilter(x => x.IsRemoved == false);
 

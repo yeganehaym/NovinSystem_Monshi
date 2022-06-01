@@ -30,15 +30,17 @@ builder.Services.AddMemoryCache();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
-{
-    //options.Filters.Add(new MyAuthorize());
-    options.Filters.Add(typeof(LoggerAttribute));
-    options.CacheProfiles.Add(new KeyValuePair<string, CacheProfile>("c1",new CacheProfile()
     {
-        Duration = 10,
-        Location = ResponseCacheLocation.Any
-    }));
-});
+        //options.Filters.Add(new MyAuthorize());
+        options.Filters.Add(typeof(LoggerAttribute));
+        options.CacheProfiles.Add(new KeyValuePair<string, CacheProfile>("c1", new CacheProfile()
+        {
+            Duration = 10,
+            Location = ResponseCacheLocation.Any
+        }));
+
+    })
+    .AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();

@@ -1,0 +1,37 @@
+﻿@model List<Monshi.Domain.Orders.Factor>
+
+
+<li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="fa fa-bell-o"></i>
+        <span class="badge badge-warning navbar-badge">@Model.Count</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+        <span class="dropdown-item dropdown-header">@Model.Count  موعد فاکتور </span>
+        <div class="dropdown-divider"></div>
+        
+        @{
+            foreach (var factor in Model)
+            {
+                <a href="#" class="dropdown-item">
+                    <i class="fa fa-envelope ml-2"></i> @factor.Customer.Name
+                    <span class="float-left text-muted text-sm">
+                        @{
+                            if (factor.IsPassed())
+                            {
+                                <span class="badge badge-danger">تاخیر</span>
+                            }
+                            else
+                            {
+                                @factor.GetRelativeTime()
+                            }
+                        }
+                    </span>
+                </a>
+                <div class="dropdown-divider"></div>
+            }
+        }
+     
+        <a href="#" class="dropdown-item dropdown-footer">مشاهده همه نوتیفیکیشن</a>
+    </div>
+</li>

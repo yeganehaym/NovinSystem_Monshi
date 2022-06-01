@@ -1,4 +1,8 @@
-﻿namespace Monshi.Domain.Users.Entities;
+﻿using Monshi.Domain.Customers;
+using Monshi.Domain.Orders;
+using Monshi.Domain.Products.Entities;
+
+namespace Monshi.Domain.Users.Entities;
 
 public class User:BaseEntity
 {
@@ -12,4 +16,8 @@ public class User:BaseEntity
     public  ActivationStatus ActivationStatus { get; set; }
     
     public TimeSpan ModateHozoor { get; set; }
+    
+    public List<Customer> Customers { get; set; }
+    public List<Factor> Factors { get; set; }
+    public List<Product> Products { get; set; }
 }
