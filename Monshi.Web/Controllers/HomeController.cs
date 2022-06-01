@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Monshi.Data.SqlServer;
 using Monshi.Domain.Logs;
 using Monshi.Domain.Users.Entities;
@@ -19,11 +20,13 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext _dbContext;
+    private IMemoryCache _memoryCache;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext, IMemoryCache memoryCache)
     {
         _logger = logger;
         _dbContext = dbContext;
+        _memoryCache = memoryCache;
     }
 
     
@@ -92,19 +95,30 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> GetOccasion(OccationViewModel model)
     {
-        var url = $"https://farsicalendar.com/api/sh/{model.Day}/{model.Month}";
-        var client = new RestClient();
-        var request = new RestRequest(url,Method.Get);
-        var response=await client.ExecuteAsync(request);
-        if (response.IsSuccessful)
+        Occasion occations = null;
+        var result = _memoryCache.TryGetValue(model.Month + "-" + model.Day, out occations);
+
+        
+        if (!result)
         {
-            var json = response.Content;
-            var occations = JsonConvert.DeserializeObject<Occasion>(json);
-            model.Occasions = new List<string>();
-            foreach (var value in occations.values)
+            var url = $"https://farsicalendar.com/api/sh/{model.Day}/{model.Month}";
+            var client = new RestClient();
+            var request = new RestRequest(url,Method.Get);
+            var response=await client.ExecuteAsync(request);
+            if (response.IsSuccessful)
             {
-                model.Occasions.Add(value.occasion + (value.dayoff?"(تعطیل)":""));
+                var json = response.Content;
+                occations = JsonConvert.DeserializeObject<Occasion>(json);
+               
             }
+
+            _memoryCache.Set(model.Month + "-" + model.Day, occations);
+        }
+        
+        model.Occasions = new List<string>();
+        foreach (var value in occations.values)
+        {
+            model.Occasions.Add(value.occasion + (value.dayoff?"(تعطیل)":""));
         }
         return View(model);
     }
@@ -132,4 +146,19 @@ public class HomeController : Controller
         return Content(response.Data.result.message);
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult GetTime()
+    {
+        return View();
+    }
+    [HttpGet]
+    [AllowAnonymous]
+    [ResponseCache(CacheProfileName = "c1")]
+    public IActionResult GetTime2()
+    {        
+        var time = DateTime.Now.ToString("HH:mm:ss");
+
+        return Content("Time=" + time);
+    }
 }

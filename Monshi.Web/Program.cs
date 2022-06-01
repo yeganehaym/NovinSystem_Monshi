@@ -1,11 +1,17 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Security.Claims;
+using System.Text;
 using ElmahCore.Mvc;
 using ElmahCore.Sql;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Monshi.ApplicationService;
 using Monshi.Data.SqlServer;
 using Monshi.Domain;
@@ -19,11 +25,19 @@ using WebApplication2.Messages;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddResponseCaching();
+builder.Services.AddMemoryCache();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
 {
     //options.Filters.Add(new MyAuthorize());
     options.Filters.Add(typeof(LoggerAttribute));
+    options.CacheProfiles.Add(new KeyValuePair<string, CacheProfile>("c1",new CacheProfile()
+    {
+        Duration = 10,
+        Location = ResponseCacheLocation.Any
+    }));
 });
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -34,7 +48,36 @@ builder.Services.AddDbContext<ApplicationDbContext>(config =>
     config.UseSqlServer(builder.Configuration.GetConnectionString("default"));
 });
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+        options.Events = new JwtBearerEvents()
+        {
+            OnTokenValidated = async context =>
+            {
+                var userId = int.Parse(context.HttpContext.User.Claims
+                    .FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.NameId).Value);
+                var serial = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "SerialNo").Value;
+                var userService = context.HttpContext.RequestServices.GetService<UserService>();
 
+                var token = context.Request.Headers["Authorization"].ToString();
+                token = token.Replace("Bearer ", "");
+                var user = await userService.FindUserAsync(userId);
+                if (user.SerialNo != serial)
+                    context.Fail("Serial Number Has been Changed");
+            }
+        };
+    });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -92,6 +135,13 @@ builder.Services.AddElmah<SqlErrorLog>(options =>
     options.Filters.Add(new ElmahError404());
 });
 
+
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+
 var app = builder.Build();
 
 using (var scope=app.Services.CreateAsyncScope())
@@ -110,6 +160,8 @@ if (!app.Environment.IsDevelopment())
 else
 {
     app.UseElmahExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

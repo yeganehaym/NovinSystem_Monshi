@@ -1,8 +1,16 @@
-﻿using System.Net;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Monshi.Data.SqlServer;
 using Monshi.Domain.Products.Entities;
+using Monshi.Domain.Users.Entities;
 using Monshi.Web.Models;
+using WebApplication2;
 
 namespace Monshi.Web.Controllers;
 
@@ -11,12 +19,51 @@ namespace Monshi.Web.Controllers;
 public class GoodsController:ControllerBase
 {
     private ApplicationDbContext _context;
+    private IConfiguration _configuration;
 
-    public GoodsController(ApplicationDbContext context)
+    public GoodsController(ApplicationDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
+    [HttpPost]
+    public IActionResult Login([FromBody]LoginViewModel model)
+    {
+        var user = _context
+            .Users
+            .FirstOrDefault(x => x.Username == model.Username && x.Password == model.Password.Hash());
+        if (user == null)
+            return NoContent();
+        var token = GenerateJSONWebToken(user);
+
+        return Ok(new {token});
+
+    }
+
+    private string GenerateJSONWebToken(User userInfo)    
+    {    
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));    
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);    
+    
+        var claims = new[] {    
+            new Claim(JwtRegisteredClaimNames.Name, userInfo.Username),    
+            new Claim(JwtRegisteredClaimNames.NameId, userInfo.Id.ToString())    ,
+            new Claim("SerialNo", userInfo.SerialNo)   , 
+            new Claim("Role", "Hesabdar")    ,
+            new Claim("Role", "Anbardar")    
+        };   
+        
+        var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],    
+            _configuration["Jwt:Issuer"],    
+            claims,    
+            expires: DateTime.Now.AddMinutes(120),    
+            signingCredentials: credentials);    
+    
+        return new JwtSecurityTokenHandler().WriteToken(token);    
+    }  
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet]
     public List<ProductItem> Get()
     {

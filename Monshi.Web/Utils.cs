@@ -1,4 +1,6 @@
 ﻿using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApplication2;
 
@@ -54,5 +56,16 @@ public static class Utils
     public static string MyExtensionMethod(this string s,string v)
     {
         return s + v;
+    }
+
+    public static string Hash(this string key)
+    {
+        var sha256 = new SHA256Managed();
+        var sha512= new SHA512Managed();
+        var bytes = Encoding.UTF8.GetBytes(key);
+        var hashedBytes=sha256.ComputeHash(bytes);
+        hashedBytes=sha512.ComputeHash(hashedBytes);
+        var hashKey = Encoding.UTF8.GetString(hashedBytes);
+        return hashKey;
     }
 }

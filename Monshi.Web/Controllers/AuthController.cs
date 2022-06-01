@@ -36,7 +36,7 @@ public class AuthController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = await _userService.FindUserAsync(model.Username, model.Password);
+            var user = await _userService.FindUserAsync(model.Username, model.Password.Hash());
             if (user == null)
             {
                 ModelState.AddModelError("username","کاربری با این مشخصات یافت نگردید");
@@ -90,7 +90,9 @@ public class AuthController : Controller
                 {
                     Username = model.Username,
                     MobileNumber = model.Username,
-                    Password = model.Password,
+                    FirstName = "",
+                    LastName = "",
+                    Password = model.Password.Hash(),
                     SerialNo = Utils.RandomString(Utils.RandomType.All,10)
                 };
                 await _userService.NewUserAsync(user);
