@@ -1,0 +1,14 @@
+﻿@using Microsoft.Extensions.Localization
+@using Monshi.Web.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Monshi.Web.Resources
+@*@inject IViewLocalizer _localizer*@
+@inject IStringLocalizer<SharedResource> _localizer
+
+<a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="fa" > Farsi/Persian</a>
+<br/>
+<a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en" >English</a>
+<br/>
+@_localizer["Welcome"].Value
+<br/>
+@Html.Raw(_localizer["Name"].Value)

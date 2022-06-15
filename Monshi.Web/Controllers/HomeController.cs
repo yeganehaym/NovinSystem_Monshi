@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
 using Monshi.Data.SqlServer;
 using Monshi.Domain.Logs;
 using Monshi.Domain.Users.Entities;
@@ -21,12 +23,14 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext _dbContext;
     private IMemoryCache _memoryCache;
+    private IStringLocalizer<HomeController> _stringLocalizer;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext, IMemoryCache memoryCache)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext, IMemoryCache memoryCache, IStringLocalizer<HomeController> stringLocalizer)
     {
         _logger = logger;
         _dbContext = dbContext;
         _memoryCache = memoryCache;
+        _stringLocalizer = stringLocalizer;
     }
 
     
@@ -161,4 +165,27 @@ public class HomeController : Controller
 
         return Content("Time=" + time);
     }
+    
+    [AllowAnonymous]
+    public IActionResult ShowErrorMessage()
+    {
+        var error = _stringLocalizer["Error"].Value;
+        return Content(error);
+    }
+    
+    [AllowAnonymous]
+    public IActionResult language()
+    {
+        return View();
+    }
+
+    public IActionResult ChangeLanguage(string lang)
+    {
+        var name = CookieRequestCultureProvider.DefaultCookieName;
+        var value = CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang));
+        Response.Cookies.Append(name,value);
+        return RedirectToAction("language");
+    }
+    
+    
 }

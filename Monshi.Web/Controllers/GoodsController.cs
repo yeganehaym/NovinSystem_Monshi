@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Monshi.Data.SqlServer;
 using Monshi.Domain.Products.Entities;
@@ -20,11 +21,13 @@ public class GoodsController:ControllerBase
 {
     private ApplicationDbContext _context;
     private IConfiguration _configuration;
+    private IStringLocalizer<GoodsController> _stringLocalizer;
 
-    public GoodsController(ApplicationDbContext context, IConfiguration configuration)
+    public GoodsController(ApplicationDbContext context, IConfiguration configuration, IStringLocalizer<GoodsController> stringLocalizer)
     {
         _context = context;
         _configuration = configuration;
+        _stringLocalizer = stringLocalizer;
     }
 
     [HttpPost]
@@ -121,4 +124,6 @@ public class GoodsController:ControllerBase
             return Ok();
         return BadRequest();
     }
+
+   
 }

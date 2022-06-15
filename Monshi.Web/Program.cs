@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,7 @@ using Monshi.Domain;
 using Monshi.Domain.Logs;
 using Monshi.Domain.Products;
 using Monshi.Domain.Users;
+using Monshi.Web.Resources;
 using WebApplication2.Elmah;
 using WebApplication2.Filters;
 using WebApplication2.Hangfire;
@@ -27,6 +30,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddResponseCaching();
 builder.Services.AddMemoryCache();
+
+var cultures = new List<CultureInfo>();
+cultures.Add(new CultureInfo("fa"));
+cultures.Add(new CultureInfo("en"));
+builder.Services.AddRequestLocalization(options =>
+{
+    options.SupportedCultures = cultures;
+    options.SupportedUICultures = cultures;
+    options.DefaultRequestCulture = new RequestCulture("fa");
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
@@ -40,7 +53,16 @@ builder.Services.AddControllersWithViews(options =>
         }));
 
     })
+    //.AddMvcLocalization(options=>options.ResourcesPath="Resources")
+    .AddDataAnnotationsLocalization(options =>
+    {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+        {
+            return factory.Create(typeof(SharedResource));
+        };
+    })
     .AddRazorRuntimeCompilation();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
@@ -146,11 +168,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-using (var scope=app.Services.CreateAsyncScope())
+/*using (var scope=app.Services.CreateAsyncScope())
 {
     var databaseInitializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
     await databaseInitializer.SeedAsync();
-}
+}*/
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -170,10 +192,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseElmah();
+
+/*var options = new RequestLocalizationOptions();
+options.RequestCultureProviders.Insert(0,new CustomLocalizationProvider());
+app.UseRequestLocalization(options);*/
+
+app.UseRequestLocalization();
 
 app.MapControllerRoute(
     name: "default",
