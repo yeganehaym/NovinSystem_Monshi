@@ -44,6 +44,27 @@ public class UserService:IUserService
 
     public async Task<OtpCode> GetOtpCode(string code)
     {
-        return await _applicationDbContext.OtpCodes.FirstOrDefaultAsync(x => x.Code == code);
+        return await _applicationDbContext.OtpCodes
+                
+            .Include(x=>x.User)
+            .FirstOrDefaultAsync(x => x.Code == code);
+    }
+    
+    public async Task<OtpCode> GetOtpCode2(string code)
+    {
+        var join= await _applicationDbContext.OtpCodes
+            .AsNoTracking()
+                
+            .Join(_applicationDbContext.Users,
+                x=>x.User.Id,
+                y=>y.Id,
+                (x, y) => new
+            {
+                OTp=x,
+                User=y
+            })
+            .FirstOrDefaultAsync(x => x.OTp.Code==code);
+
+        return null;
     }
 }

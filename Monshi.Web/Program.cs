@@ -45,7 +45,7 @@ builder.Services.AddRequestLocalization(options =>
 builder.Services.AddControllersWithViews(options =>
     {
         //options.Filters.Add(new MyAuthorize());
-        options.Filters.Add(typeof(LoggerAttribute));
+        //options.Filters.Add(typeof(LoggerAttribute));
         options.CacheProfiles.Add(new KeyValuePair<string, CacheProfile>("c1", new CacheProfile()
         {
             Duration = 10,
@@ -71,7 +71,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(config =>
 {
     config.UseSqlServer(builder.Configuration.GetConnectionString("default"));
 });
-
+/*
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -102,7 +102,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
-
+*/
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -119,7 +119,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var serialNo = context.Principal.Claims.First(x => x.Type == ClaimTypes.SerialNumber).Value;
                 var userId = int.Parse(claim.Value);
               
-                var userService = context.HttpContext.RequestServices.GetService<UserService>();
+                var userService = context.HttpContext.RequestServices.GetService<IUserService>();
                 var user = await userService.FindUserAsync(userId);
                 //if (user.IsAdmin == false)
                 //context.RejectPrincipal();
@@ -194,7 +194,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseElmah();
+//app.UseElmah();
 
 /*var options = new RequestLocalizationOptions();
 options.RequestCultureProviders.Insert(0,new CustomLocalizationProvider());
@@ -217,4 +217,7 @@ app.UseHangfireDashboard(options:new DashboardOptions()
     Authorization = new []{new HangfireAuthorization()}
 });
 
+
+var licensePath = Path.Combine(builder.Environment.ContentRootPath, "Reports", "license.key");
+Stimulsoft.Base.StiLicense.LoadFromFile(licensePath);
 app.Run();

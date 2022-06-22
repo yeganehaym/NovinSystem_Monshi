@@ -1,0 +1,85 @@
+﻿@using Stimulsoft.Report.Mvc
+@using Stimulsoft.Report.Web
+
+  @{
+        Layout = null;
+  }
+
+<div style="direction: ltr">
+    
+
+    @Html.StiNetCoreViewer(new StiNetCoreViewerOptions()
+    {
+        Theme = StiViewerTheme.Office2007Silver,
+
+        Appearance =
+        {
+            RightToLeft = true,
+            //ShowTooltips = false,
+            ShowTooltipsHelp = false,
+
+        },
+        Localization = "~/Reports/fa.xml",
+        Actions =
+        {
+            GetReport = "LoadReportData",
+            ViewerEvent = "ViewerEvent",
+
+        },
+        Toolbar =
+        {
+            ShowAboutButton = false,
+            ShowOpenButton = false,
+            ShowSaveButton = true,
+            ShowFindButton = false,
+            ShowEditorButton = false,
+            ShowDesignButton = false,
+            ShowBookmarksButton = false,
+            ShowResourcesButton = false,
+            ShowParametersButton = false,
+            ShowPinToolbarButton = false
+
+        },
+        Exports =
+        {
+            DefaultSettings =
+            {
+                ExportToPdf =
+                {
+                    CreatorString = "Novin"
+                }
+            },
+            ShowExportDialog = false,
+            ShowExportToDocument = false,
+            ShowExportToExcel = false,
+            ShowExportToExcel2007 = false,
+            ShowExportToHtml = false,
+            ShowExportToHtml5 = false,
+            ShowExportToImageBmp = false,
+            ShowExportToImageJpeg = false,
+            ShowExportToImagePcx = false,
+            ShowExportToImagePng = false,
+            ShowExportToImageMetafile = false,
+            ShowExportToImageTiff = false,
+            ShowExportToOpenDocumentCalc = false,
+            ShowExportToMht = false,
+            ShowExportToOpenDocumentWriter = false,
+            ShowExportToXps = false,
+            ShowExportToSylk = false,
+            ShowExportToRtf = false,
+            ShowExportToExcelXml = false,
+            ShowExportToText = false,
+            ShowExportToWord2007 = false,
+            ShowExportToImageGif = false,
+            ShowExportToCsv = false,
+            ShowExportToDbf = false,
+
+            ShowExportToDif = false,
+            ShowExportToImageSvg = false,
+            ShowExportToImageSvgz = false,
+            ShowExportToPowerPoint = false,
+            ShowExportToXml = false,
+            ShowExportToJson = false
+        }
+    })
+</div>

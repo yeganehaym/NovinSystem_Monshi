@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="2">
+      <Factor Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+        <Alias>Factor</Alias>
+        <BusinessObjects isList="true" count="0" />
+        <Category>Factor</Category>
+        <Columns isList="true" count="4">
+          <value>ORIGINAL,Number,Number,Number,System.String,_x0036_b4954b0336842f5a7deee998a1b4320</value>
+          <value>ORIGINAL,Price,Price,Price,System.Int32,c8815475f0694e57aaa4adca1f30e3b9</value>
+          <value>ORIGINAL,Date,Date,Date,System.String,_x0038_9574e821b624c6ca358c372c11392ce</value>
+          <value>ORIGINAL,Discount,Discount,Discount,System.Int32,cb9c8d4ceb4a4aa48afa3f9fdbbf18cc</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Guid>b7a83521429a408bb29d897bc2c27673</Guid>
+        <Name>Factor</Name>
+      </Factor>
+      <Items Ref="3" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+        <Alias>Items</Alias>
+        <BusinessObjects isList="true" count="0" />
+        <Category>Items</Category>
+        <Columns isList="true" count="5">
+          <value>ORIGINAL,Name,Name,Name,System.String,_x0033_dd9fd65d4fd4483a0f1331e2d87c0e6</value>
+          <value>ORIGINAL,Type,Type,Type,System.Boolean,_x0032_c9b57d21931470eb9bd3fc0454512fd</value>
+          <value>ORIGINAL,Price,Price,Price,System.Int32,be78a1135c3245c7be36f3031b1a8c7e</value>
+          <value>ORIGINAL,Quantity,Quantity,Quantity,System.Int32,_x0038_bf5470add924bce933950ab24d40940</value>
+          <value>CALC,TotalPrice,TotalPrice,System.Int32,Items.Price_x002A_Items.Quantity,_x0034_c80053661a94362bd69ca297ba13e8c</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Guid>277d8c0b38024ac4b9b0c9bd8cff0e7f</Guid>
+        <Key>6608e2d4902649458149cd2216dc982b</Key>
+        <Name>Items</Name>
+      </Items>
+    </BusinessObjects>
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="0" />
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="1">
+      <value>,Today,Today,,System.String,,False,False,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>08d11948ecf34f7783aafd1af358a833</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <PageFooterBand1 Ref="5" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,26.9,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text9 Ref="6" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.4,0.1,2.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{PageNumber}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text9>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageFooterBand1>
+        <ReportTitleBand1 Ref="7" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,4.2</ClientRectangle>
+          <Components isList="true" count="8">
+            <Text1 Ref="8" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>12.2,1.6,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>{Factor.Number}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text1>
+            <Text2 Ref="9" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16,1.4,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Titr,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>شماره فاکتور
+</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text2>
+            <Text3 Ref="10" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>6,1.4,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Titr,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>تاریخ فاکتور</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+            <Text4 Ref="11" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>1.6,1.6,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>{Factor.Date}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text4>
+            <Text5 Ref="12" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>12.4,3,3.4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>{Factor.Price}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text5>
+            <Text6 Ref="13" type="Text" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>1.6,3,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>{Factor.Discount}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text6>
+            <Text7 Ref="14" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>16,2.8,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Titr,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>مبلغ فاکتور</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text7>
+            <Text8 Ref="15" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>5.8,2.8,2.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Titr,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="7" />
+              <Text>تخفیف</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text8>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </ReportTitleBand1>
+        <TableItems Ref="16" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid>277d8c0b38024ac4b9b0c9bd8cff0e7f</BusinessObjectGuid>
+          <ClientRectangle>0,5.4,19,2.4</ClientRectangle>
+          <Components isList="true" count="15">
+            <TableItems_Cell1 Ref="17" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>0</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell1</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>قیمت نهایی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell1>
+            <TableItems_Cell2 Ref="18" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.8,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>1</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell2</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>تعداد</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell2>
+            <TableItems_Cell3 Ref="19" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.6,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>2</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell3</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>مبلغ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell3>
+            <TableItems_Cell4 Ref="20" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>11.4,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>3</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell4</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>نوع</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell4>
+            <TableItems_Cell5 Ref="21" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>15.2,0,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>4</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell5</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>عنوان</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell5>
+            <TableItems_Cell6 Ref="22" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0.8,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>5</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell6</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Items.TotalPrice}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell6>
+            <TableItems_Cell7 Ref="23" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.8,0.8,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>6</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell7</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Items.Quantity}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell7>
+            <TableItems_Cell8 Ref="24" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.6,0.8,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>7</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell8</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Items.Price}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell8>
+            <TableItems_Cell9 Ref="25" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>11.4,0.8,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>8</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell9</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Items.Type}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell9>
+            <TableItems_Cell10 Ref="26" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>15.2,0.8,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>B Nazanin,14</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>9</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell10</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Items.Name}</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell10>
+            <TableItems_Cell11 Ref="27" type="TableCell" isKey="true">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,1.6,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>10</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell11</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Sum(Items.TotalPrice)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell11>
+            <TableItems_Cell12 Ref="28" type="TableCell" isKey="true">
+              <Border>Left, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.8,1.6,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>11</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell12</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>جمع نهایی</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </TableItems_Cell12>
+            <TableItems_Cell13 Ref="29" type="TableCell" isKey="true">
+              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.6,1.6,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>12</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell13</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </TableItems_Cell13>
+            <TableItems_Cell14 Ref="30" type="TableCell" isKey="true">
+              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>11.4,1.6,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>13</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell14</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </TableItems_Cell14>
+            <TableItems_Cell15 Ref="31" type="TableCell" isKey="true">
+              <Border>Right, Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>15.2,1.6,3.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>14</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>TableItems_Cell15</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </TableItems_Cell15>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataSourceName isNull="true" />
+          <Expressions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <FooterRowsCount>1</FooterRowsCount>
+          <HeaderRowsCount>1</HeaderRowsCount>
+          <MinHeight>0.60000000000000009</MinHeight>
+          <Name>TableItems</Name>
+          <NumberID>15</NumberID>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <RowCount>3</RowCount>
+          <Sort isList="true" count="0" />
+        </TableItems>
+        <FooterBand1 Ref="32" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,8.6,19,3.6</ClientRectangle>
+          <Components isList="true" count="2">
+            <RichText1 Ref="33" type="Stimulsoft.Report.Components.StiRichText" isKey="true">
+              <BackColor>White</BackColor>
+              <ClientRectangle>10.6,0,8.4,3.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <DataColumn />
+              <Expressions isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>RichText1</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>__LP___x005C_rtf1_x005C_fbidis_x005C_ansi_x005C_ansicpg1256_x005C_deff0_x005C_nouicompat_x005C_deflang1065__LP___x005C_fonttbl__LP___x005C_f0_x005C_fnil_x005C_fcharset178_x0020_B_x0020_Mitra_x003B___RP____LP___x005C_f1_x005C_fnil_x005C_fcharset0_x0020_B_x0020_Mitra_x003B___RP____RP___x000D__x000A___LP___x005C__x002A__x005C_generator_x0020_Riched20_x0020_10.0.19041__RP___x005C_viewkind4_x005C_uc1_x0020__x000D__x000A__x005C_pard_x005C_ltrpar_x005C_qr_x005C_f0_x005C_rtlch_x005C_fs32_x005C__x0027_c7_x005C_u1740_x003F__x005C__x0027_e4_x0020__x005C__x0027_dd_x005C__x0027_c7_x005C__x0027_98_x005C__x0027_ca_x005C__x0027_e6_x005C__x0027_d1_x0020__x005C__x0027_e5_x005C_u1740_x003F__x005C__x0027_8d_x0020__x005C__x0027_c7_x005C__x0027_da_x005C__x0027_ca_x005C__x0027_c8_x005C__x0027_c7_x005C__x0027_d1_x005C_u1740_x003F__x0020__x005C__x0027_cc_x005C__x0027_d2_x0020__x005C__x0027_e4_x005C__x0027_e3_x005C__x0027_c7_x005C_u1740_x003F__x005C__x0027_d4_x0020__x005C__x0027_c7_x005C__x0027_d8_x005C__x0027_e1_x005C__x0027_c7_x005C__x0027_da_x005C__x0027_c7_x005C__x0027_ca_x0020__x005C__x0027_e4_x005C__x0027_cf_x005C__x0027_c7_x005C__x0027_d1_x005C__x0027_cf._x005C_par_x000D__x000A__x005C__x0027_c7_x005C_u1740_x003F__x005C__x0027_e4_x0020__x005C__x0027_dd_x005C__x0027_c7_x005C__x0027_98_x005C__x0027_ca_x005C__x0027_e6_x005C__x0027_d1_x0020__x005C__x0027_c8_x005C__x0027_cf_x005C__x0027_e6_x005C__x0027_e4_x0020__x005C__x0027_e3_x005C__x0027_e5_x005C__x0027_d1_x0020__x005C__x0027_e6_x0020__x005C__x0027_c7_x005C__x0027_e3_x005C__x0027_d6_x005C__x0027_c7_x0020__x005C__x0027_c7_x005C__x0027_da_x005C__x0027_ca_x005C__x0027_c8_x005C__x0027_c7_x005C__x0027_d1_x0020__x005C__x0027_e4_x005C__x0027_cf_x005C__x0027_c7_x005C__x0027_d1_x005C__x0027_cf_x005C_par_x000D__x000A__x005C_b_x005C__x0027_e3_x005C__x0027_e4_x005C__x0027_d4_x005C_u1740_x003F__x005C_f1_x005C_ltrch_x005C_lang1033_x005C_par_x000D__x000A___RP___x000D__x000A_</Text>
+            </RichText1>
+            <Text10 Ref="34" type="Text" isKey="true">
+              <Brush>White</Brush>
+              <ClientRectangle>0.6,2.8,1.8,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="32" />
+              <Text>مهر و امضا؟</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>,,RightToLeft=True,,,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text10>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Expressions isList="true" count="0" />
+      <Guid>fdaae15554f54af7be72c1485562dd5c</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>6/22/2022 6:09:31 PM</ReportChanged>
+  <ReportCreated>6/15/2022 7:34:06 PM</ReportCreated>
+  <ReportFile>D:\Report.mrt</ReportFile>
+  <ReportGuid>c531dafe313b41e1bdf6470c1bd83bc0</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2022.1.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>
