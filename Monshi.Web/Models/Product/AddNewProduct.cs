@@ -19,5 +19,7 @@ namespace Monshi.Web.Models.Product
 
         [Required(ErrorMessage = "لطفا تعداد کالا را وارد کنید")]
         public int Quantity { get; set; }
+        
+        public string? Message { get; set; }
     }
 }

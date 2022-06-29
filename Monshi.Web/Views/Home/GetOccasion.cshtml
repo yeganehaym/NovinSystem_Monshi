@@ -7,18 +7,10 @@
     <button type="submit" class="btn btn-primary">Get Location</button>
 </form>
 
+
 @{
-    if (Model !=null && Model.Occasions != null && Model.Occasions.Count > 0)
+    if (Model != null)
     {
-        <div class="alert alert-info">
-            <ul>
-                @{
-                    foreach (var occasion in Model.Occasions)
-                    {
-                        <li>@occasion</li>
-                    }
-                }
-            </ul>
-        </div>
+        <listItems asp-items="Model.Occasions" ></listItems>
     }
 }

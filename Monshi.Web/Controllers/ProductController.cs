@@ -25,7 +25,8 @@ public class ProductController : Controller
     [HttpGet]
     public IActionResult NewProduct()
     {
-        return View();
+        ViewBag.Dialog = true;
+        return View(new AddNewProduct());
     }
     [HttpPost]
     public async Task<IActionResult> NewProduct(AddNewProduct addNewProduct)
@@ -41,9 +42,12 @@ public class ProductController : Controller
         var rows = await _applicationDbContext.SaveChangesAsync();
         if (rows > 0)
         {
+            TempData["Message"] = "محصول مورد نظر اضافه شد";
             return RedirectToAction("NewProduct");
         }
-        return View();
+
+        addNewProduct.Message = "خطا در ثبت محصول";
+        return View(addNewProduct);
     }
 
     public IActionResult GetListProducts()
