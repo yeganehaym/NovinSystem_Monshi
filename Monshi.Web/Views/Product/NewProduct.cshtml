@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Monshi.Web.Models.Product.AddNewProduct
+<head>
+    <title>اضافه کردن محصول</title>
+</head>
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col-md-10">
+        <label>نام کالا</label><span class="text-danger">*</span>
+        <input asp-for="Name" type="text" class="form-control" placeholder="نام کالا">
+    </div>
+    <label>محصول یا خدمت</label><span class="text-danger">*</span>
+    <div class="col-md-10">
+        <select asp-for="ProductType">
+            <option value="-1">انتخاب کنید</option>
+            <option value="0">محصول</option>
+            <option value="1">خدمت</option>
+        </select>
+    </div>
+    <div class="col-md-10">
+        <label>قیمت کالا</label><span class="text-danger">*</span>
+        <input asp-for="Price" type="number" class="form-control" placeholder="قیمت کالا">
+    </div>
+    <div class="col-md-10">
+        <label>تعداد کالا</label><span class="text-danger">*</span>
+        <input asp-for="Quantity" type="text" class="form-control" placeholder="تعداد کالا">
+    </div>
+    <button type="submit" id="btnSubmit" class="btn btn-primary">ثبت کالا</button>
+</form>

@@ -219,5 +219,5 @@ app.UseHangfireDashboard(options:new DashboardOptions()
 
 
 var licensePath = Path.Combine(builder.Environment.ContentRootPath, "Reports", "license.key");
-Stimulsoft.Base.StiLicense.LoadFromFile(licensePath);
+//Stimulsoft.Base.StiLicense.LoadFromFile(licensePath);
 app.Run();
