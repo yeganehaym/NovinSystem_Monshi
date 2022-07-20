@@ -21,10 +21,15 @@ using Monshi.Domain.Logs;
 using Monshi.Domain.Products;
 using Monshi.Domain.Users;
 using Monshi.Web.Resources;
+using Parbad.Builder;
+using Parbad.Gateway.Mellat;
+using Parbad.Gateway.ZarinPal;
 using WebApplication2.Elmah;
 using WebApplication2.Filters;
 using WebApplication2.Hangfire;
 using WebApplication2.Messages;
+using WebApplication2.MiddleWares;
+using WebApplication2.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +56,8 @@ builder.Services.AddControllersWithViews(options =>
             Duration = 10,
             Location = ResponseCacheLocation.Any
         }));
+        
+        options.ModelBinderProviders.Insert(0,new YeKeModelBinderProvider());
 
     })
     //.AddMvcLocalization(options=>options.ResourcesPath="Resources")
@@ -70,7 +77,9 @@ builder.Services.AddScoped<SmsService>();
 builder.Services.AddDbContext<ApplicationDbContext>(config =>
 {
     config.UseSqlServer(builder.Configuration.GetConnectionString("default"));
+    //config.UseInMemoryDatabase("Test");
 });
+builder.Services.AddScoped<IUnitOfWork, ApplicationDbContext>();
 /*
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -131,7 +140,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         };
 
     });
-
+/*
 builder.Services.AddHangfire(configuration => configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
     .UseSimpleAssemblyNameTypeSerializer()
@@ -163,37 +172,74 @@ builder.Services.AddElmah<SqlErrorLog>(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+*/
 
+builder.Services.AddParbad()
+    .ConfigureGateways(gateways =>
+    {
+        gateways
+            .AddZarinPal()
+            .WithAccounts(accounts =>
+            {
+                accounts.AddInMemory(account =>
+                {
+                    account.Name = "zarin1";
+                    account.MerchantId = "0844da7f-ebde-4c84-8832-2beb87dcf70d";
+                    account.IsSandbox = true;
+                });
+
+            });
+        
+        
+    })
+    .ConfigureHttpContext(builder => builder.UseDefaultAspNetCore())
+    .ConfigureStorage(configure =>
+    {
+        configure.UseMemoryCache();
+    });
 
 
 var app = builder.Build();
 
-/*using (var scope=app.Services.CreateAsyncScope())
+/*
+app.Run(async context =>
+{
+    await context.Response.WriteAsync("Hello I am Here");
+});
+
+app.Use(async (context, next) =>
+{
+    
+    await next();
+});
+*/
+using (var scope=app.Services.CreateAsyncScope())
 {
     var databaseInitializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
     await databaseInitializer.SeedAsync();
-}*/
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseDeveloperExceptionPage();
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else
 {
-    app.UseElmahExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    //app.UseElmahExceptionPage();
+    //app.UseSwagger();
+   // app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseXSSBlocker();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
 //app.UseElmah();
 
 /*var options = new RequestLocalizationOptions();
@@ -206,17 +252,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+/*
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHangfireDashboard();
 });
+
 app.UseHangfireDashboard(options:new DashboardOptions()
 {
     Authorization = new []{new HangfireAuthorization()}
 });
-
+*/
 
 var licensePath = Path.Combine(builder.Environment.ContentRootPath, "Reports", "license.key");
 //Stimulsoft.Base.StiLicense.LoadFromFile(licensePath);

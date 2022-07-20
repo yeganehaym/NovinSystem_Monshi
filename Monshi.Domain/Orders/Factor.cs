@@ -37,6 +37,7 @@ public class Factor:BaseEntity
         return "تا دقایق دیگر";
     }
 
+    public bool IsPaid { get; set; }
     public bool IsPassed()
     {
         return DueDate.Value < DateTime.Now;

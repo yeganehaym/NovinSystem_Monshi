@@ -22,10 +22,16 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="Parbad" Version="3.8.3" />
+      <PackageReference Include="Parbad.AspNetCore" Version="1.2.0" />
+      <PackageReference Include="Parbad.Gateway.ZarinPal" Version="1.2.0" />
+      <PackageReference Include="Parbad.Storage.Cache" Version="1.2.0" />
       <PackageReference Include="RestSharp" Version="107.3.0" />
       <PackageReference Include="Stimulsoft.Reports.Web.NetCore" Version="2022.1.1" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+      <PackageReference Include="ZarinPal" Version="3.0.1" />
     </ItemGroup>
 
     <ItemGroup>

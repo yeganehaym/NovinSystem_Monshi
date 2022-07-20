@@ -7,15 +7,22 @@ namespace Monshi.ApplicationService;
 
 public class ProductService : IProductService
 {
+    private IUnitOfWork _uow;
     private ApplicationDbContext _applicationDbContext;
 
-    public ProductService(ApplicationDbContext applicationDbContext)
+    private DbSet<Product> _products;
+    public ProductService(ApplicationDbContext applicationDbContext,IUnitOfWork uow)
     {
         _applicationDbContext = applicationDbContext;
+        _products = applicationDbContext.Set<Product>();
+       // _products = _uow.Set<Product>();
+        _uow = uow;
     }
 
     public async Task NewProductAsync(Product product)
     {
+        //await _products.AddAsync(product);
+        //await _uow.Set<Product>().AddAsync(product);
         await _applicationDbContext.Products.AddAsync(product);
     }
 

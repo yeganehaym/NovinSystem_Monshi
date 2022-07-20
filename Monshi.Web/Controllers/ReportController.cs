@@ -1,8 +1,11 @@
 ﻿using DNTPersianUtils.Core;
 using Microsoft.AspNetCore.Mvc;
+using Monshi.Data.SqlServer;
 using Monshi.Domain.Orders;
+using Monshi.Domain.Products.Entities;
 using Stimulsoft.Report;
 using Stimulsoft.Report.Mvc;
+using WebApplication2.ModelBinders;
 
 namespace Monshi.Web.Controllers;
 
@@ -41,4 +44,16 @@ public class ReportController : Controller
     {
         return  StiNetCoreViewer.ViewerEventResult(this);
     }
+
+    
+    //public IActionResult TestBinder([ModelBinder(typeof(YeKeModelBinder))]string name)
+    public IActionResult TestBinder(string name)
+    {
+        return Content(name);
+    }
+
+    
+    
+    
+    
 }

@@ -9,13 +9,15 @@ using Monshi.Domain.Users.Entities;
 
 namespace Monshi.Data.SqlServer;
 
-public class ApplicationDbContext:DbContext
+public class ApplicationDbContext:DbContext,IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
     {
         
     }
+
     
+
     public DbSet<Product> Products { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<OtpCode> OtpCodes { get; set; }
@@ -23,9 +25,15 @@ public class ApplicationDbContext:DbContext
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Factor> Factors { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<FactorQuery> FactorQuery { get; set; }
 
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<FactorQuery>()
+            .HasNoKey()
+            .ToView("MyView");
+        
         /*modelBuilder.Entity<Factor>().HasOne(x => x.Customer)
             .WithMany(x => x.Factors)
             .HasForeignKey(x => x.CustomerId);

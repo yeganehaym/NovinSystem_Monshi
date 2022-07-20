@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Monshi.Data.SqlServer;
 using Monshi.Domain;
 using Monshi.Domain.Customers;
@@ -25,7 +27,7 @@ public class DatabaseInitializer:IDatabaseInitializer
             var user = new User()
             {
                 Username = "admin",
-                Password = "123456",
+                Password = Hash("123456"),
                 FirstName = "ali",
                 LastName = "rahmani",
                 MobileNumber = "09365437062",
@@ -103,5 +105,16 @@ public class DatabaseInitializer:IDatabaseInitializer
       
        
         await _context.SaveChangesAsync();
+    }
+    
+    public  string Hash( string key)
+    {
+        var sha256 = new SHA256Managed();
+        var sha512= new SHA512Managed();
+        var bytes = Encoding.UTF8.GetBytes(key);
+        var hashedBytes=sha256.ComputeHash(bytes);
+        hashedBytes=sha512.ComputeHash(hashedBytes);
+        var hashKey = Encoding.UTF8.GetString(hashedBytes);
+        return hashKey;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -187,6 +188,27 @@ public class HomeController : Controller
         Response.Cookies.Append(name,value);
         return RedirectToAction("language");
     }
-    
-    
+
+    [AllowAnonymous]
+    public IActionResult TestQuery()
+    {
+        var list = new[] {new SqlParameter("@ispaid", true)};
+        var p = true;
+      //  _dbContext.Database.ExecuteSqlRaw("update factors set ispaid=@p1",list);
+       // _dbContext.Database.ExecuteSqlInterpolated($"exec sp");
+
+       var rows= _dbContext.Database.ExecuteSqlInterpolated($"update factors set ispaid={p}");
+       return Content("Rows = " + rows);
+    }
+
+    [AllowAnonymous]
+    public IActionResult TestQuery2()
+    {
+        var data = _dbContext
+            .FactorQuery
+            .FromSqlRaw("select * from myview")
+            .ToList();
+
+        return Json(data);
+    }
 }
